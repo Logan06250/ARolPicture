@@ -1,12 +1,43 @@
 <template>
     <div id="Gallery">
         <div class="img-container">
-            <div class="menu">
-                    <i class="fas fa-align-justify"></i>
+            <div class="menu-container">
+                <div class="toggle" id="toggle" @click="expand()">
+                    <section class="wow slideInDown" data-wow-duration="1s">
+                        <i class="fa fa-plus" id="plus"></i>
+                    </section>
+                    </div>
+                    <div class="menu menu-option" id="menu">
+                    <a href="#" >
+                        <i class="fa fa-microphone"></i>
+                    </a>
+                    <a href="#" >
+                        <i class="fa fa-user"></i>
+                    </a>
+                    <a href="#" @click="contact" >
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                </div>
             </div>
-            <div class="centered headtext"> ArolPicture  Gallery</div>
+                <div class="centered ">             
+                    <section class="wow fadeInLeft" data-wow-duration="3s">
+                        <p class="headtext" style="margin-left: 50px">  ArolPicture </p>
+                    </section>
+                    <section class="wow fadeInRight" data-wow-duration="3s">
+                        <p class="headtext" > Gallery </p>
+                    </section>
+                </div>
+                
+                <div class="social"> 
+                    <section class="wow fadeInDown" data-wow-duration="1s">
+                        <i class="fab fa-twitter"></i> -
+                        <i class="fab fa-facebook-f"></i> -
+                        <i class="fab fa-instagram"></i> -
+                        <i class="fab fa-linkedin"></i>
+                    </section>    
+                </div>
         </div>
-        <div class="row"> 
+        <div class="row wow fadeIn" data-wow-duration="1s"> 
             <div class="column">
                 <a href="#" class="pop">
                     <img src="./../assets/grid/img12.jpg" style="width:100%">
@@ -26,9 +57,10 @@
                 <a href="#" class="pop">
                     <img src="./../assets/grid/img6.jpg" style="width:100%">
                 </a>
-                <a href="#" class="pop">
-                    <img src="./../assets/grid/img10.jpg" style="width:100%">
-                </a>
+                    <a href="#" class="pop">
+                        <img src="./../assets/grid/img10.jpg" style="width:100%">
+                    </a>
+                
             </div>
             <div class="column">
                 <a href="#" class="pop">
@@ -88,12 +120,67 @@
 </template>
 
 <script>
-$(function() {
-		$('.pop').on('click', function() {
-			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
-			$('#imagemodal').modal('show');   
-		});		
-});
+    
+        
+</script>
+<script>
+
+import WOW from 'wow.js'
+
+    var wow = new WOW(
+    {
+        boxClass:     'wow',      // animated element css class (default is wow)
+        animateClass: 'animated', // animation css class (default is animated)
+        offset:       0,          // distance to the element when triggering the animation (default is 0)
+        mobile:       true,       // trigger animations on mobile devices (default is true)
+        live:         true,       // act on asynchronously loaded content (default is true)
+        callback:     function(box) {
+        // the callback is fired every time an animation is started
+        // the argument that is passed in is the DOM node being animated
+        },
+        scrollContainer: null,    // optional scroll container selector, otherwise use window,
+        resetAnimation: true,     // reset animation on end (default is true)
+    }
+    );
+    wow.init();
+export default {
+
+    name: 'FaqsEditModal',
+    
+    mounted() {
+
+    },
+    data() {
+        return {
+            i:  0
+        }
+    }, 
+    mounted: function (){
+        $(function() {
+            $('.pop').on('click', function() {
+                $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+                $('#imagemodal').modal('show');   
+            });		
+        });
+    },
+    methods: {
+        expand: function() {
+            if(this.i==0){
+            document.getElementById("menu").style.transform="scale(3)"; 
+            document.getElementById("plus").style.transform="rotate(45deg)"; 
+                this.i=1;
+            }
+            else{   document.getElementById("menu").style.transform="scale(0)"; 
+            document.getElementById("plus").style.transform="rotate(0deg)"; 
+                this.i=0;
+            }
+        },
+        contact: function () {
+            this.$router.push("contact")
+        }
+
+    }
+}
 </script>
 
 <style>
@@ -121,14 +208,22 @@ $(function() {
     position: absolute;
     top: 70%;
     left: 20%;
-    transform: translate(-50%, -50%);
     font-family: Tahoma, Verdana, Segoe, sans-serif;
 }
-.menu {
+
+.social {
     position: absolute;
-    top: 10%;
-    left: 5%;
-    transform: translate(-50%, -50%);
+    top: 1%;
+    left: 85%;
+    font-size: 25px;
+    line-height: 100px;
+
+}
+.menu-container {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    /*transform: translate(-50%, -50%);*/
 }
 
 .headtext {
@@ -199,4 +294,69 @@ $(function() {
     transform: scale(2.1)
 }
 
+
+.toggle {
+  background-color: transparent;
+  text-align: center;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  position: absolute;
+  margin: auto;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.fa-plus{
+  font-size: 40px;
+  color: white;
+  display: block;
+  margin-top: 20px;
+  transition: 0.7s;
+    cursor: pointer;
+
+}
+
+.menu {
+  background-color: rgba(75, 75, 75, 0.39);
+  height: 120px;
+  width: 120px;
+  transform: scale(0);
+  border-radius: 50%;
+  position: absolute;
+  margin: auto;
+  top: 0px;
+  bottom: 0px;
+  left: -15px;
+  z-index: -1;
+  transition: 0.8s;
+}
+
+.menu-option a {
+  display: inline-block;
+  position: absolute;
+  font-size: 12px;
+  color: rgb(212, 212, 212);
+}
+
+.menu-option a:nth-child(1){
+  top: 55px;
+  left: 100px;
+}
+
+.menu-option a:nth-child(2){
+  top: 83px;
+  left: 87px;
+}
+
+.menu-option a:nth-child(3){
+  top: 100px;
+  left: 50px;
+}
+
+.menu-option a:hover {
+  color: #ffffff;
+}
 </style>
