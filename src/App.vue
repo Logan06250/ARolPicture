@@ -1,7 +1,8 @@
 <template>
-  <div id="app">
-   
-    <router-view/>
+  <div id="app" >
+   <transition name="slide-fade">
+     <router-view />
+   </transition>
   </div>
 </template>
 
@@ -13,4 +14,12 @@
   text-align: center;
   color: #2c3e50;
 }
+
+  .slide-fade-enter-active {
+  transition: all .5s ease;
+  }
+  .slide-fade-enter, .slide-fade-leave-to {
+    transform: translateX(50px);
+    opacity: 0;
+  }
 </style>

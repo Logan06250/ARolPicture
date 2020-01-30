@@ -15,3 +15,10 @@ export default {
   }
 }
 </script>
+<style>
+
+body {
+  background : #151617;
+}
+
+</style>
